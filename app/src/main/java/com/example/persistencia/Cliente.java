@@ -11,6 +11,8 @@ public class Cliente {
     private ArrayList<Factura> lasFacturas = new ArrayList<>();
 
 
+    //region Constructores
+
     public Cliente() {
     }
 
@@ -20,6 +22,9 @@ public class Cliente {
         this.tipo = tipo;
     }
 
+    //endregion
+
+    //region Getter y Setters
     public String getRut() {
         return rut;
     }
@@ -44,6 +49,10 @@ public class Cliente {
         this.tipo = tipo;
     }
 
+
+    //endregion
+
+    //region ToString
     @Override
     public String toString() {
         return "Cliente{" +
@@ -52,4 +61,47 @@ public class Cliente {
                 ", tipo='" + tipo + '\'' +
                 '}';
     }
+
+    //endregion
+
+    //region Metodos
+    public boolean agregarFactura(Factura f){
+        for(int i = 0; i > lasFacturas.size(); ++i){
+            if(lasFacturas.get(i).getFolio() == f.getFolio() || f.getNeto() >= 1000000){
+                return false;
+            }
+        }
+        lasFacturas.add(f);
+        return true;
+    }
+    //TODO:
+    //PARA TERMINAR EL EJERCICIO HAY QUE HACER EL UPDATE Y
+    //EN LA FACTURA TRABAJAR CON TIPO DATE LA FECHA
+
+    public int obtenerTotalVentas(){
+        int suma = 0;
+        for (int i = 0; i < lasFacturas.size(); ++i){
+           suma = suma+ lasFacturas.get(i).getNeto();
+        }
+        return suma;
+    }
+
+    public boolean eliminarFactura(int folio){
+        for(int i = 0; i > lasFacturas.size(); ++i){
+            if(lasFacturas.get(i).getFolio() == folio){
+                lasFacturas.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+    public Factura[] obtenerFacturas(){
+        Factura[] facturas = new Factura[lasFacturas.size()];
+        for (int i = 0; i < lasFacturas.size(); ++i){
+            facturas[i] = lasFacturas.get(i);
+        }
+        return facturas;
+    }
+
+    //endregion
 }
